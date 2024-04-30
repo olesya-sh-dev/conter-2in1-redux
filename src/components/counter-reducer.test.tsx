@@ -23,11 +23,10 @@ test("value should be changed", () => {
         maxValue: 5,
     }
   
-    const action = resetAC()
+    const action = resetAC(2)
     const endState = counterReducer(startState, action);
   
-    expect(endState.value).toBe(0)
-
+    expect(endState.value).toBe(2)
     expect(endState.maxValue).toBe(5);
     
   });

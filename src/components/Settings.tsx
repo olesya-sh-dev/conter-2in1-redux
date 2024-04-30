@@ -9,19 +9,10 @@ import { AppRootStateType } from "./store";
 import { setMaxAC, setMinAC } from "./settings-reducer";
 
 type SettingsPropsType = {
-  //maxValue: number | null;
-  //minValue: number | null;
-  giveValues: (maxValue: number, minValue: number) => void;
-  //setMaxValue: (maxValue: number) => void;
-  //setMinValue: (minValue: number) => void;
+   giveValues: (maxValue: number, minValue: number) => void;
 };
-
 export const Settings = ({
-  //maxValue,
-  //minValue,
   giveValues,
-  //setMaxValue,
-  //setMinValue,
 }: SettingsPropsType) => {
   const stateSet = useSelector((state: AppRootStateType) => state.settingsReducer);
 
