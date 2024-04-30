@@ -16,7 +16,7 @@ test("value should be changed", () => {
     
   });
   
-  test("value should be reset", () => {
+  test("value should be reset", () => {  
        
     const startState:StateType = {
         value: 5,

@@ -79,11 +79,11 @@ function App() {
         />
       ) : (
         <Settings
-          maxValue={maxValue}
-          minValue={minValue}
+          //maxValue={maxValue}
+          //minValue={minValue}
           giveValues={giveValues}
-          setMaxValue={setMaxValue}
-          setMinValue={setMinValue}
+          //setMaxValue={setMaxValue}
+          //setMinValue={setMinValue}
         />
       )}
     </div>

@@ -18,7 +18,7 @@ test("minvalue should be changed", () => {
   
 test("maxvalue should be changed", () => {
        
-    const startState:StateType = {
+    const startState:StateType = {  
         maxValue: 5,
         minValue: 0,
     }

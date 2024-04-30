@@ -8,10 +8,11 @@ import { ButtonsWrapper } from "./ButtonsWrapper";
 type CounterPropsType = {
   value: number;
   maxValue: number | null;
+  style?: React.CSSProperties;
 
   incrementNumberHandler: () => void;
   resetNumberHandler: () => void;
-  //onSettingsHandler: () => void;
+  onSettingsHandler: () => void;
 };
 
 
@@ -19,7 +20,8 @@ type CounterPropsType = {
 
 export const Counter = ({
   value,
-  //onSettingsHandler,
+  style,
+  onSettingsHandler,
   maxValue,
   incrementNumberHandler,
   resetNumberHandler,
@@ -46,7 +48,7 @@ export const Counter = ({
           disabled={value === maxValue}
         />
         <ButtonComponent title={"RESET"} onClick={resetNumberHandler} />
-        {/* <ButtonComponent title={"SET"} onClick={onSettingsHandler} /> */}
+        <ButtonComponent title={"SET"} onClick={onSettingsHandler} />
       </ButtonsWrapper>
     </Wrapper>
   );
