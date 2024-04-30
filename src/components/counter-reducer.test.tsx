@@ -1,4 +1,4 @@
-import { StateType, counterReducer, incrementAC, resetAC } from "./counter-reducer";
+import { StateType, counterReducer, incrementAC, resetAC, setValuesAC } from "./counter-reducer";
 
 test("value should be changed", () => {
        
@@ -29,6 +29,22 @@ test("value should be changed", () => {
     expect(endState.value).toBe(0)
 
     expect(endState.maxValue).toBe(5);
+    
+  });
+  
+  test("values should be changed", () => {
+       
+    const startState:StateType = {
+        value: 0,
+        maxValue: 5,
+    }
+  
+    const action = setValuesAC(6,12)
+    const endState = counterReducer(startState, action);
+  
+    expect(endState.value).toBe(6)
+
+    expect(endState.maxValue).toBe(12);
     
   });
   

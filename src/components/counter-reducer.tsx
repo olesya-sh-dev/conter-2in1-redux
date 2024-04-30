@@ -5,8 +5,9 @@ const initialState = {
 export type StateType = typeof initialState;
 export type IncrementActionCreatorType = ReturnType<typeof incrementAC>;
 export type ResetActionCreatorType = ReturnType<typeof resetAC>;
+export type SetValuesActionCreatorType = ReturnType<typeof setValuesAC>;
 
-type ActionType = IncrementActionCreatorType | ResetActionCreatorType;
+type ActionType = IncrementActionCreatorType | ResetActionCreatorType | SetValuesActionCreatorType
 export const counterReducer = (
   state: StateType = initialState,
   action: ActionType
@@ -19,6 +20,9 @@ export const counterReducer = (
 
     case "RESET":
       return { ...state, value: 0 };
+
+    case "SET_VALUES":
+      return {...state, value:action.payload.value, maxValue: action.payload.maxValue} 
     default:
       return state;
   }
@@ -26,7 +30,18 @@ export const counterReducer = (
 
 export const incrementAC = () => {
   return { type: "INCREMENT" } as const;
-};
+} 
 export const resetAC = () => {
   return { type: "RESET" } as const;
-};
+} 
+
+export const setValuesAC = (value:number, maxValue:number) => {
+  return (
+    {type:"SET_VALUES",
+    payload:{
+      value,
+      maxValue
+    }
+
+    })
+}

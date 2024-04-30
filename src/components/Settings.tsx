@@ -1,57 +1,63 @@
-import Box from "@mui/material/Box";
 import React, { ChangeEvent } from "react";
 import { ButtonComponent } from "./Button";
 import { ValueSetting } from "./ValueSetting";
 import { Wrapper } from "./Wrapper";
 import { NumberWrapper } from "./NumberWrapper";
 import { ButtonsWrapper } from "./ButtonsWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { AppRootStateType } from "./store";
+import { setMaxAC, setMinAC } from "./settings-reducer";
 
 type SettingsPropsType = {
-  maxValue: number | null;
-  minValue: number | null;
+  //maxValue: number | null;
+  //minValue: number | null;
   giveValues: (maxValue: number, minValue: number) => void;
-  setMaxValue: (maxValue: number) => void;
-  setMinValue: (minValue: number) => void;
+  //setMaxValue: (maxValue: number) => void;
+  //setMinValue: (minValue: number) => void;
 };
 
 export const Settings = ({
-  maxValue,
-  minValue,
+  //maxValue,
+  //minValue,
   giveValues,
-  setMaxValue,
-  setMinValue,
+  //setMaxValue,
+  //setMinValue,
 }: SettingsPropsType) => {
+  const stateSet = useSelector((state: AppRootStateType) => state.settingsReducer);
+
+  const dispatch = useDispatch();
+
   const setMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newMaxValue = Number(e.currentTarget.value);
-    setMaxValue(newMaxValue);
+    dispatch(setMaxAC(newMaxValue));
     //localStorage.setItem("maxValue", newMaxValue.toString());
   };
 
   const setMinValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newMinValue = Number(e.currentTarget.value);
-    setMinValue(newMinValue);
+    dispatch(setMinAC(newMinValue));
     //localStorage.setItem("minValue", newMinValue.toString());
   };
 
   const errorCondition =
-    maxValue! < 0 ||
-    minValue! >= maxValue! ||
-    minValue! < 0 ||
-    maxValue === null ||
-    minValue === null;
+    stateSet.maxValue! < 0 ||
+    stateSet.minValue! >= stateSet.maxValue! ||
+    stateSet.minValue! < 0 ||
+    stateSet.maxValue === null ||
+    stateSet.minValue === null;
 
   return (
     <Wrapper>
       <NumberWrapper>
        <ValueSetting
           title={"max value"}
-          value={maxValue}
+          value={stateSet.maxValue}
           setValueHandler={setMaxValueHandler}
           errorCondition={errorCondition}
         />
         <ValueSetting
           title={"min value"}
-          value={minValue}
+          value={stateSet.minValue}
           setValueHandler={setMinValueHandler}
           errorCondition={errorCondition}
         />
@@ -61,7 +67,7 @@ export const Settings = ({
       >
         <ButtonComponent
           title={"SET"}
-          onClick={() => giveValues(maxValue!, minValue!)}
+          onClick={() => giveValues(stateSet.maxValue, stateSet.minValue)}
           disabled={errorCondition}
         />
       </ButtonsWrapper>

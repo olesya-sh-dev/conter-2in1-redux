@@ -6,7 +6,8 @@ import { Settings } from "./components/Settings";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "./components/store";
-import { incrementAC, resetAC } from "./components/counter-reducer";
+import { incrementAC, resetAC, setValuesAC } from "./components/counter-reducer";
+import { setMaxAC, setMinAC } from "./components/settings-reducer";
 
 function AppWithRedux() {
   //const [value, setValue] = useState<number | null>(null);
@@ -30,6 +31,7 @@ function AppWithRedux() {
   //   setMaxValue(Number(localStorage.getItem("maxValue")));
   // }, []);
   const state = useSelector((state: AppRootStateType) => state.counterReducer);
+  const stateSet = useSelector((state: AppRootStateType) => state.settingsReducer);
 
   const dispatch = useDispatch();
 
@@ -44,14 +46,16 @@ function AppWithRedux() {
     //setValue(minValue);
   };
 
-  // const giveValues = (maxValue: number, minValue: number) => {
-  //   setValue(minValue);
+  const giveValues = (maxValue:number, minValue: number) => {
+    dispatch(setValuesAC(stateSet.minValue, stateSet.maxValue))
+  
+  // setValue(minValue);
   // localStorage.setItem("minValue", minValue.toString());
   // localStorage.setItem("maxValue", maxValue.toString());
   // const onSettingsHandler = () => {
   //   setValue(null);
   // };
-
+  }
   const theme = createTheme({
     palette: {
       primary: {
@@ -69,29 +73,26 @@ function AppWithRedux() {
     },
   });
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div className="App">
-        {/* {value !== null ? ( */}
+  return  (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <div className="App">
         <Counter
-          value={state.value}
-          //onSettingsHandler={onSettingsHandler}
-          maxValue={state.maxValue}
-          incrementNumberHandler={incrementNumberHandler}
-          resetNumberHandler={resetNumberHandler}
-        />
-        {/* ) : (
-         <Settings */}
-        {/* maxValue={maxValue}
-           giveValues={giveValues}
-           minValue={minValue}
-           setMaxValue={setMaxValue}
-           setMinValue={setMinValue}
-         >
-      )} */}
-      </div>
-    </ThemeProvider>
+        value={state.value}
+        //onSettingsHandler={onSettingsHandler}
+        maxValue={state.maxValue}
+        incrementNumberHandler={incrementNumberHandler}
+        resetNumberHandler={resetNumberHandler}
+      />
+       <Settings 
+         //maxValue={stateSet.maxValue}
+         giveValues={giveValues}
+         //minValue={stateSet.minValue}
+         //setMaxValue={setMaxValue}
+         //setMinValue={setMinValue}
+       />
+    </div>
+  </ThemeProvider>
   );
 }
 
