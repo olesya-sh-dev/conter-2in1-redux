@@ -7,17 +7,24 @@ import { ButtonsWrapper } from "./ButtonsWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "./store";
 import { setMaxAC, setMinAC } from "./settings-reducer";
+import { setValuesAC } from "./counter-reducer";
 
 type SettingsPropsType = {
-   giveValues: (maxValue: number, minValue: number) => void;
+  onSettingsHandler: () => void;
+   //giveValues: (maxValue: number, minValue: number) => void;
 };
 export const Settings = ({
-  giveValues,
+  onSettingsHandler,
+  //giveValues,
 }: SettingsPropsType) => {
-  const stateSet = useSelector((state: AppRootStateType) => state.settingsReducer);
+  const stateSet = useSelector((state: AppRootStateType) => state.settings);
 
   const dispatch = useDispatch();
-
+  const giveValues = () => {
+    dispatch(setValuesAC(stateSet.minValue, stateSet.maxValue))
+    //setSettingsActive(false);
+    onSettingsHandler();
+  };
   const setMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newMaxValue = Number(e.currentTarget.value);
     dispatch(setMaxAC(newMaxValue));
@@ -58,11 +65,14 @@ export const Settings = ({
       >
         <ButtonComponent
           title={"SET"}
-          onClick={() => giveValues(stateSet.maxValue, stateSet.minValue)}
+          onClick={giveValues}
+          // onClick={() => giveValues(stateSet.maxValue, stateSet.minValue)}
           disabled={errorCondition}
         />
       </ButtonsWrapper>
   </Wrapper>
   );
 };
+
+
 //

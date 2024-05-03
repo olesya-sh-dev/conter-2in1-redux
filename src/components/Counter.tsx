@@ -1,32 +1,31 @@
-import React, { useState } from "react";
 import { ButtonComponent } from "./Button";
 import { Wrapper } from "./Wrapper";
 import { NumberWrapper } from "./NumberWrapper";
 import { ButtonsWrapper } from "./ButtonsWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { incrementAC, resetAC } from "./counter-reducer";
+import { AppRootStateType } from "./store";
 
 
 type CounterPropsType = {
-  value: number;
-  maxValue: number | null;
-  style?: React.CSSProperties;
-
-  incrementNumberHandler: () => void;
-  resetNumberHandler: () => void;
-  onSettingsHandler: () => void;
+    onSettingsHandler: () => void;
 };
 
 
 
-
 export const Counter = ({
-  value,
-  style,
-  onSettingsHandler,
-  maxValue,
-  incrementNumberHandler,
-  resetNumberHandler,
+  onSettingsHandler
 }: CounterPropsType) => {
-
+  const maxValue = useSelector((state: AppRootStateType) => state.counter.maxValue);
+  const value = useSelector((state: AppRootStateType) => state.counter.value)
+  const minValue = useSelector((state:AppRootStateType) => state.settings.minValue)
+  const dispatch = useDispatch();
+  const incrementNumberHandler = () => {
+    dispatch(incrementAC());
+    };
+    const resetNumberHandler = () => {
+      dispatch(resetAC(minValue));
+    };
   return (
     <Wrapper>
       <NumberWrapper>

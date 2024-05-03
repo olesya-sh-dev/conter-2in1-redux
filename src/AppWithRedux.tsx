@@ -6,36 +6,18 @@ import { Settings } from "./components/Settings";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootStateType } from "./components/store";
-import {
-  incrementAC,
-  resetAC,
-  setValuesAC,
-} from "./components/counter-reducer";
-
 
 function AppWithRedux() {
   const [isSettingsActive, setSettingsActive] = useState(false);
 
- 
-  const state = useSelector((state: AppRootStateType) => state.counterReducer);
-  const stateSet = useSelector(
-    (state: AppRootStateType) => state.settingsReducer
+  // const state = useSelector((state: AppRootStateType) => state.counter);
+  const stateSetmin = useSelector(
+    (state: AppRootStateType) => state.settings.minValue
   );
-
-  const dispatch = useDispatch();
-
-  const incrementNumberHandler = () => {
-    dispatch(incrementAC());
-    };
-
-  const resetNumberHandler = () => {
-    dispatch(resetAC(stateSet.minValue));
-  };
-
-  const giveValues = () => {
-    dispatch(setValuesAC(stateSet.minValue, stateSet.maxValue))
-    setSettingsActive(false);
-  };
+  // const giveValues = () => {
+  //   dispatch(setValuesAC(stateSet.minValue, stateSet.maxValue))
+  //   setSettingsActive(false);
+  // };
   const onSettingsHandler = () => {
     setSettingsActive(!isSettingsActive);
   };
@@ -61,18 +43,10 @@ function AppWithRedux() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="App">
-      {isSettingsActive ? (
-          // Если isSettingsActive == true, показываем Settings
-          <Settings giveValues={giveValues} />
+        {isSettingsActive ? (
+          <Settings onSettingsHandler={onSettingsHandler} />
         ) : (
-          // Если isSettingsActive == false, показываем Counter
-          <Counter
-            value={state.value}
-            onSettingsHandler={onSettingsHandler}
-            maxValue={state.maxValue}
-            incrementNumberHandler={incrementNumberHandler}
-            resetNumberHandler={resetNumberHandler}
-          />
+          <Counter onSettingsHandler={onSettingsHandler} />
         )}
       </div>
     </ThemeProvider>
