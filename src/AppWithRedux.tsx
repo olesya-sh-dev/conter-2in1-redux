@@ -4,20 +4,10 @@ import "./App.css";
 import { Counter } from "./components/Counter";
 import { Settings } from "./components/Settings";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { AppRootStateType } from "./components/store";
+
 
 function AppWithRedux() {
   const [isSettingsActive, setSettingsActive] = useState(false);
-
-  // const state = useSelector((state: AppRootStateType) => state.counter);
-  const stateSetmin = useSelector(
-    (state: AppRootStateType) => state.settings.minValue
-  );
-  // const giveValues = () => {
-  //   dispatch(setValuesAC(stateSet.minValue, stateSet.maxValue))
-  //   setSettingsActive(false);
-  // };
   const onSettingsHandler = () => {
     setSettingsActive(!isSettingsActive);
   };

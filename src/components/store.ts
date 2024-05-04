@@ -1,13 +1,14 @@
 import { counterReducer } from "./counter-reducer";
-import { combineReducers as combineRedusers, createStore } from "redux";
-import { settingsReducer } from "./settings-reducer";
+import { combineReducers as combineRedusers, legacy_createStore } from "redux";
+
+import { commonReducer } from "./common_reducer";
 
 const rootReducer = combineRedusers({
-  counter: counterReducer,
-  settings: settingsReducer,
+  commonData: commonReducer
+  
 });
 
-export const store = createStore(rootReducer);
+export const store = legacy_createStore(rootReducer);
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
 // @ts-ignore
