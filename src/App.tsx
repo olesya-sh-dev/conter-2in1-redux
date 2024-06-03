@@ -71,17 +71,18 @@ function App() {
     <div className="App">
       {value !== null ? (
         <Counter
-          value={value}
+          //value={value}
           onSettingsHandler={onSettingsHandler}
-          maxValue={maxValue}
-          incrementNumberHandler={incrementNumberHandler}
-          resetNumberHandler={resetNumberHandler}
+          //maxValue={maxValue}
+          //incrementNumberHandler={incrementNumberHandler}
+          //resetNumberHandler={resetNumberHandler}
         />
       ) : (
-        <Settings
+        <Settings 
+          onSettingsHandler={onSettingsHandler}
           //maxValue={maxValue}
           //minValue={minValue}
-          giveValues={giveValues}
+          //giveValues={giveValues}
           //setMaxValue={setMaxValue}
           //setMinValue={setMinValue}
         />
